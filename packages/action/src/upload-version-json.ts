@@ -73,14 +73,14 @@ export default async function uploadVersionJSON({
 
   const sigFile = artifacts.find((s) => s.path.endsWith('.sig'));
   const assetNames = new Set(artifacts.map((p) => getAssetName(p.path)));
-  console.log(JSON.stringify(assetNames, null, 2));
+  console.warn(JSON.stringify(assetNames, null, 2));
   let downloadUrl = assets.data
     .filter((e) => assetNames.has(e.name))
     .find(
       (s) => s.name.endsWith('.tar.gz') || s.name.endsWith('.zip')
     )?.browser_download_url;
 
-  console.log(`Download URL: ${downloadUrl}`);
+  console.warn(`Download URL: ${downloadUrl}`);
 
   // Untagged release downloads won't work after the release was published
   downloadUrl = downloadUrl?.replace(
@@ -88,8 +88,8 @@ export default async function uploadVersionJSON({
     tagName ? `/download/${tagName}/` : '/latest/download/'
   );
 
-  console.log(`Download URL: ${downloadUrl}`);
-  console.log(`Signature file: ${sigFile?.path}`);
+  console.warn(`Download URL: ${downloadUrl}`);
+  console.warn(`Signature file: ${sigFile?.path}`);
 
   let os = platform() as string;
   if (os === 'win32') {
