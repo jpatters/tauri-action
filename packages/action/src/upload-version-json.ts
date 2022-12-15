@@ -72,7 +72,12 @@ export default async function uploadVersionJSON({
   }
 
   const sigFile = artifacts.find((s) => s.path.endsWith('.sig'));
-  const assetNames = new Set(artifacts.map((p) => getAssetName(p.path)));
+  console.log("artifacts", JSON.stringify(artifacts, null, 2))
+  const assetNames = new Set(artifacts.map((p) => {
+    console.log("asset path", p.path);
+    console.log("asset name", getAssetName(p.path));
+    return getAssetName(p.path);
+  }));
   console.warn(JSON.stringify(assetNames, null, 2));
   let downloadUrl = assets.data
     .filter((e) => assetNames.has(e.name))
