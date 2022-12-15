@@ -78,14 +78,14 @@ export default async function uploadVersionJSON({
     console.log("asset name", getAssetName(p.path));
     return getAssetName(p.path);
   }));
-  console.warn(JSON.stringify(assetNames, null, 2));
+  console.log("assetNames", JSON.stringify(assetNames, null, 2));
   let downloadUrl = assets.data
     .filter((e) => assetNames.has(e.name))
     .find(
       (s) => s.name.endsWith('.tar.gz') || s.name.endsWith('.zip')
     )?.browser_download_url;
 
-  console.warn(`Download URL: ${downloadUrl}`);
+  console.log(`Download URL: ${downloadUrl}`);
 
   // Untagged release downloads won't work after the release was published
   downloadUrl = downloadUrl?.replace(
@@ -93,8 +93,8 @@ export default async function uploadVersionJSON({
     tagName ? `/download/${tagName}/` : '/latest/download/'
   );
 
-  console.warn(`Download URL: ${downloadUrl}`);
-  console.warn(`Signature file: ${sigFile?.path}`);
+  console.log(`Download URL: ${downloadUrl}`);
+  console.log(`Signature file: ${sigFile?.path}`);
 
   let os = platform() as string;
   if (os === 'win32') {
