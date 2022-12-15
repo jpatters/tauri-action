@@ -78,7 +78,7 @@ export default async function uploadVersionJSON({
     console.log("asset name", getAssetName(p.path));
     return getAssetName(p.path);
   }));
-  console.log("assetNames", JSON.stringify(assetNames, null, 2));
+  console.log("assetNames", JSON.stringify(Array.from(assetNames), null, 2));
   let downloadUrl = assets.data
     .filter((e) => assetNames.has(e.name))
     .find(
